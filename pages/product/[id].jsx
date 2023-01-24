@@ -1,11 +1,20 @@
-import { getProductAPI, getProductsAPI } from "@/api/Product";
-import { formatCurrency } from "@/utils";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Pagination, Navigation, Autoplay } from "swiper";
+SwiperCore.use([Pagination, Navigation, Autoplay]);
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { getProductAPI, getProductsAPI } from "@/api/Product";
+import { formatCurrency } from "@/utils";
 
 export const getStaticPaths = async () => {
-  const response = await getProductsAPI();
+  const response = await getProductsAPI("?populate=*");
+
   const products = response.data;
 
   const paths = products.map((product) => ({
@@ -20,7 +29,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   try {
-    const response = await getProductAPI(params.id);
+    const response = await getProductAPI(params.id, "?populate=*");
     const product = response.data;
 
     if (product === null) {
@@ -44,7 +53,6 @@ const ProductDetails = ({ product: { attributes: product } }) => {
   const height = product.image.data[0].attributes.height;
   const attributes = product.description?.split("\n");
 
-  console.log(product.image);
   const whatsAppMessage = `Hola, estoy interesado en esta laptop ${product.name}`;
 
   return (
@@ -55,16 +63,35 @@ const ProductDetails = ({ product: { attributes: product } }) => {
 
       <div className="max-w-2xl mx-auto p-6">
         <div className="relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg  ">
-          <p className="absolute text-[#674188] rounded-full px-4 py-1 -right-2 top-0 bg-[#C3ACD0] font-bold">
+          <p className="absolute z-50 text-[#674188] rounded-full px-4 py-1 -right-2 top-0 bg-[#C3ACD0] font-bold">
             {product.name}
           </p>
-          <Image
-            width={width}
-            height={height}
-            className=" w-full h-fit  rounded-lg "
-            src={`http://localhost:1337${product.image.data[0].attributes.url}`}
-            alt="image"
-          />
+          <Swiper
+            navigation
+            loop={true}
+            autoplay={{ delay: 3000 }}
+            pagination={{ clickable: true }}
+            slidesPerView={1}
+            className="w-full h-fit"
+            style={{
+              "--swiper-navigation-color": "#674188",
+              "--swiper-pagination-color": "#674188",
+            }}
+          >
+            {product.image.data.map((image) => (
+              <SwiperSlide key={image.id}>
+                <SwiperSlide>
+                  <Image
+                    width={width}
+                    height={height}
+                    className=" w-full rounded-lg "
+                    src={`http://localhost:1337${image.attributes.url}`}
+                    alt="image"
+                  />
+                </SwiperSlide>
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
           <div className="flex justify-between items-center mt-2 -ml-2">
             <p className="text-green-500 font-semibold first-line:ml-2">

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const getStaticProps = async () => {
-  const response = await getProductsAPI();
+  const response = await getProductsAPI("?populate=*");
   const products = response.data;
 
   if (!products) {

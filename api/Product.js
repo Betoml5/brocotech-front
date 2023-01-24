@@ -8,18 +8,18 @@ const productsClient = axios.create({
   },
 });
 
-export const getProductsAPI = async () => {
+export const getProductsAPI = async (queryParams) => {
   try {
-    const response = await productsClient.get("/?populate=*");
+    const response = await productsClient.get(`${queryParams}`);
     return response.data;
   } catch (error) {
     return error;
   }
 };
 
-export const getProductAPI = async (id) => {
+export const getProductAPI = async (id, queryParams) => {
   try {
-    const response = await productsClient.get(`/${id}?populate=*`);
+    const response = await productsClient.get(`/${id}${queryParams}`);
     return response.data;
   } catch (error) {
     return error;
