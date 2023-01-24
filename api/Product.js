@@ -19,7 +19,7 @@ export const getProductsAPI = async () => {
 
 export const getProductAPI = async (id) => {
   try {
-    const response = await productsClient.get(`/${id}`);
+    const response = await productsClient.get(`/${id}?populate=*`);
     return response.data;
   } catch (error) {
     return error;

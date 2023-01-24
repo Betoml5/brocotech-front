@@ -8,14 +8,14 @@ const Product = ({ product }) => {
   const attributes = product.description?.split("\n");
 
   return (
-    <div className="relative font-Montserrat first-line:relative p-4 shadow-xl rounded-lg">
+    <div className="relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg">
       <p className="absolute text-[#674188] rounded-full px-4 py-1 -right-2 top-0 bg-[#C3ACD0] font-bold">
         {product.name}
       </p>
       <Image
         width={width}
         height={height}
-        className="w-full  rounded-lg"
+        className=" w-full  md:object-cover md:h-40 xl:h-96 rounded-lg"
         src={`http://localhost:1337${product.image.data[0].attributes.url}`}
         alt="image"
       />
@@ -28,7 +28,7 @@ const Product = ({ product }) => {
         {product.avaliable ? "En stock" : "Agotado"}
       </p>
 
-      <div className="flex gap-2 items-center flex-wrap  mt-2">
+      <div className="flex  gap-2 items-center flex-wrap  mt-2">
         {attributes.map((item) => (
           <p
             className="text-center flex-grow bg-[#FFFBF5] font-light shadow-md px-6 py-1 rounded-lg w-fit"

@@ -2,10 +2,17 @@ import { getProductsAPI } from "@/api/Product";
 import Product from "@/components/Product";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 export const getStaticProps = async () => {
   const response = await getProductsAPI();
   const products = response.data;
+
+  if (!products) {
+    return {
+      notFound: true,
+    };
+  }
 
   if (products.length === 0) {
     return {
@@ -32,9 +39,11 @@ export default function Home({ products }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="grid grid-cols-1 gap-2 p-4">
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 max-w-[1440px] mx-auto">
         {products.map((product) => (
-          <Product product={product.attributes} key={product.id} />
+          <Link href={`/product/${product.id}`} key={product.id}>
+            <Product product={product.attributes} />
+          </Link>
         ))}
       </main>
     </>
