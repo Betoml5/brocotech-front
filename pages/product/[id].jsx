@@ -78,7 +78,7 @@ const ProductDetails = ({
   const width = product.image.data[0].attributes.width;
   const height = product.image.data[0].attributes.height;
   const attributes = product.description?.split("\n");
-  const whatsAppMessage = `Hola, estoy interesado en esta laptop ${product.name}`;
+  const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
 
   return (
     <>
