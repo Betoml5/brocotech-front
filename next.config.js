@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "brocotech.herokuapp.com",
+      },
+    ],
+    domains: ["brocotech.herokuapp.com", "localhost"],
   },
   staticPageGenerationTimeout: 60,
 };
