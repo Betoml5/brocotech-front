@@ -11,7 +11,7 @@ const NotFound = () => {
         height={300}
         alt="empty-folder"
       />
-      <h1 className="text-2xl font-bold text-gray-500">
+      <h1 className="text-center text-2xl font-bold text-gray-500">
         Ups... Creo que te perdiste,{" "}
         <Link href="/" className="underline">
           vuelve al inicio
