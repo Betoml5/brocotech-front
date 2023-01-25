@@ -19,12 +19,30 @@ const Header = () => {
         </div>
         <h1 className="ml-4 font-Montserrat text-xl">Broco Tech</h1>
       </Link>
-      <Link
-        target={"_blank"}
-        href={`https://wa.me/528611262242?text=${whatsAppMessage}`}
-      >
-        <Image src="/whatsapp.png" width={30} height={30} alt="whatsapplogo" />
-      </Link>
+      <div className="flex flex-row-reverse gap-x-4">
+        <Link
+          target={"_blank"}
+          href={`https://wa.me/528611262242?text=${whatsAppMessage}`}
+        >
+          <Image
+            src="/whatsapp.png"
+            width={30}
+            height={30}
+            alt="whatsapplogo"
+          />
+        </Link>
+        <Link
+          target={"_blank"}
+          href="https://www.facebook.com/BrocoTech-102581285616187"
+        >
+          <Image
+            src="/facebook.png"
+            width={30}
+            height={30}
+            alt="whatsapplogo"
+          />
+        </Link>
+      </div>
     </header>
   );
 };

@@ -7,8 +7,9 @@ const productsClient = axios.create({
     "Content-Type": "application/json",
   },
 });
+// Agregue "" a queryParams para que no se rompa si no se envía nada
 
-export const getProductsAPI = async (queryParams) => {
+export const getProductsAPI = async (queryParams = "") => {
   try {
     const response = await productsClient.get(`${queryParams}`);
     return response.data;
@@ -16,8 +17,9 @@ export const getProductsAPI = async (queryParams) => {
     return error;
   }
 };
+// Agregue "" a queryParams para que no se rompa si no se envía nada
 
-export const getProductAPI = async (id, queryParams) => {
+export const getProductAPI = async (id, queryParams = "") => {
   try {
     const response = await productsClient.get(`/${id}${queryParams}`);
     return response.data;

@@ -80,6 +80,8 @@ const ProductDetails = ({
   const attributes = product.description?.split("\n");
   const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
 
+  const isOffer = product.offerPrice > 0;
+
   return (
     <>
       <Head>
@@ -118,10 +120,21 @@ const ProductDetails = ({
             ))}
           </Swiper>
 
-          <div className="flex justify-between items-center mt-2 -ml-2">
-            <p className="text-green-500 font-semibold first-line:ml-2">
-              ${formatCurrency(product.price)}
-            </p>
+          <div className="flex justify-between items-center mt-2 -ml-2  text-lg">
+            <div className="flex items-center gap-x-4">
+              <p
+                className={`text-green-500 font-semibold first-line:ml-2 ${
+                  isOffer && "line-through   text-black"
+                }`}
+              >
+                ${formatCurrency(product.price)}
+              </p>
+              {isOffer && (
+                <p className="text-red-500 font-semibold first-line:ml-2 ">
+                  ${formatCurrency(product.offerPrice)}
+                </p>
+              )}
+            </div>
             <p
               className={` px-4 py-1 rounded-full font-semibold  ${
                 product.avaliable ? "text-green-500" : "text-red-500"

@@ -1,4 +1,5 @@
-import { getAlertsAPI, getProductsAPI } from "@/api/Product";
+import { getProductsAPI } from "@/api/Product";
+import { getAlertsAPI } from "@/api/Alert";
 import Alert from "@/components/Alert";
 import Product from "@/components/Product";
 import Head from "next/head";
@@ -12,8 +13,6 @@ export const getStaticProps = async () => {
     const products = response.data;
     const alertResponse = await getAlertsAPI();
     const alert = alertResponse.data;
-
-    console.log(alertResponse);
 
     if (!products) {
       return {
@@ -49,7 +48,7 @@ export const getStaticProps = async () => {
   }
 };
 
-export default function Home({ products }) {
+export default function Home({ products, alert: widget }) {
   const [alert, setAlert] = useState(true);
 
   return (
@@ -65,10 +64,11 @@ export default function Home({ products }) {
       </Head>
 
       <Alert
-        title="¡Bienvenido a Broco Tech!"
+        message={widget[0].attributes.description}
         show={alert}
         setShow={setAlert}
         alwaysVisible
+        type="success"
       />
 
       {products.length === 0 && (

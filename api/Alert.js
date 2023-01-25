@@ -8,11 +8,13 @@ const alertsClient = axios.create({
   },
 });
 
-export const getAlertsAPI = async (queryParams) => {
-    try {
-        const response = await alertsClient.get(`${queryParams}`);
-        return response.data;
-    } catch (error) {
-        return error;
-    }
-}
+// Agregue "" a queryParams para que no se rompa si no se envía nada
+
+export const getAlertsAPI = async (queryParams = "") => {
+  try {
+    const response = await alertsClient.get(`${queryParams}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
