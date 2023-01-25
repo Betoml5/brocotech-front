@@ -62,7 +62,7 @@ export const getStaticProps = async ({ params }) => {
         product,
         productsSidebar,
       },
-      revalidate: 5 * 60,
+      revalidate: 60,
     };
   } catch (error) {
     return {
