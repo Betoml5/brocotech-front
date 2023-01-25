@@ -25,3 +25,12 @@ export const getProductAPI = async (id, queryParams) => {
     return error;
   }
 };
+
+export const getWidgetsAPI = async (queryParams) => {
+  try {
+    const response = await productsClient.get(`/widgets${queryParams}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
