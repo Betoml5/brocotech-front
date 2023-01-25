@@ -26,7 +26,7 @@ export const getStaticProps = async () => {
       return {
         props: {
           products,
-          alert: {},
+          alert: null,
         },
       };
     }
@@ -42,7 +42,7 @@ export const getStaticProps = async () => {
     return {
       props: {
         products: [],
-        alert: {},
+        alert: null,
       },
     };
   }
@@ -63,13 +63,15 @@ export default function Home({ products, alert: widget }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Alert
-        message={widget[0].attributes.description}
-        show={alert}
-        setShow={setAlert}
-        alwaysVisible
-        type="success"
-      />
+      {alert && (
+        <Alert
+          message={widget[0].attributes.description}
+          show={alert}
+          setShow={setAlert}
+          alwaysVisible
+          type="success"
+        />
+      )}
 
       {products.length === 0 && (
         <div className="flex flex-col items-center justify-center h-[80vh]">
