@@ -1,30 +1,57 @@
-import { getProductsAPI } from "@/api/Product";
+import { getAlertsAPI, getProductsAPI } from "@/api/Product";
+import Alert from "@/components/Alert";
 import Product from "@/components/Product";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export const getStaticProps = async () => {
-  const response = await getProductsAPI("?populate=*");
-  const products = response.data;
+  try {
+    const response = await getProductsAPI("?populate=*");
+    const products = response.data;
+    const alertResponse = await getAlertsAPI();
+    const alert = alertResponse.data;
 
-  if (!products) {
+    console.log(alertResponse);
+
+    if (!products) {
+      return {
+        props: {
+          products: [],
+        },
+      };
+    }
+
+    if (!alert) {
+      return {
+        props: {
+          products,
+          alert: {},
+        },
+      };
+    }
+
+    return {
+      props: {
+        products,
+        alert,
+        revalidate: 60,
+      },
+    };
+  } catch (error) {
     return {
       props: {
         products: [],
+        alert: {},
       },
     };
   }
-
-  return {
-    props: {
-      products,
-      revalidate: 60,
-    },
-  };
 };
 
 export default function Home({ products }) {
+  const [alert, setAlert] = useState(true);
+
   return (
     <>
       <Head>
@@ -36,6 +63,13 @@ export default function Home({ products }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Alert
+        title="¡Bienvenido a Broco Tech!"
+        show={alert}
+        setShow={setAlert}
+        alwaysVisible
+      />
 
       {products.length === 0 && (
         <div className="flex flex-col items-center justify-center h-[80vh]">
