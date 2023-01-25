@@ -25,6 +25,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       products,
+      revalidate: 60 * 60,
     },
   };
 };

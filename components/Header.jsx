@@ -17,7 +17,7 @@ const Header = () => {
             alt="brocotech"
           />
         </div>
-        <h1 className="ml-4 font-Montserrat ">Broco Tech</h1>
+        <h1 className="ml-4 font-Montserrat text-xl">Broco Tech</h1>
       </Link>
       <Link
         target={"_blank"}

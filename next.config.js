@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: ["localhost"],
   },
+  staticPageGenerationTimeout: 60,
 };
 
 module.exports = nextConfig;
