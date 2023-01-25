@@ -13,10 +13,18 @@ import "swiper/css/navigation";
 
 import { getProductAPI, getProductsAPI } from "@/api/Product";
 import { formatCurrency } from "@/utils";
+import { server, imagePrefix } from "@/config";
 
 export const getStaticPaths = async () => {
   const response = await getProductsAPI("?populate=*");
   const products = response.data;
+
+  if (!products) {
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 
   const paths = products.map((product, index) => {
     if (product == null) {
@@ -32,7 +40,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -54,6 +62,7 @@ export const getStaticProps = async ({ params }) => {
         product,
         productsSidebar,
       },
+      revalidate: 5 * 60,
     };
   } catch (error) {
     return {
@@ -69,7 +78,6 @@ const ProductDetails = ({
   const width = product.image.data[0].attributes.width;
   const height = product.image.data[0].attributes.height;
   const attributes = product.description?.split("\n");
-
   const whatsAppMessage = `Hola, estoy interesado en esta laptop ${product.name}`;
 
   return (
@@ -102,7 +110,7 @@ const ProductDetails = ({
                     width={width}
                     height={height}
                     className=" w-full rounded-lg "
-                    src={`http://localhost:1337${image.attributes.url}`}
+                    src={`${imagePrefix}${image.attributes.url}`}
                     alt="image"
                   />
                 </SwiperSlide>
@@ -167,7 +175,7 @@ const ProductDetails = ({
                         width={width}
                         height={height}
                         className=" w-full h-full object-cover  rounded-lg "
-                        src={`http://localhost:1337${product.image.data[0].attributes.url}`}
+                        src={`${imagePrefix}${product.image.data[0].attributes.url}`}
                         alt="image"
                       />
                       <p className="absolute -top-2 -right-3 truncate text-ellipsis text-[9px] z-50 text-[#674188] rounded-full px-2 py-1   bg-[#C3ACD0] font-bold md:text-base md:px-4 md:py-2">

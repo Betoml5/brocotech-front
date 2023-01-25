@@ -1,4 +1,4 @@
-import { server } from "@/config";
+import { imagePrefix, server } from "@/config";
 import Image from "next/image";
 import React from "react";
 
@@ -16,7 +16,7 @@ const Product = ({ product }) => {
         width={width}
         height={height}
         className=" w-full  md:object-cover md:h-40 xl:h-96 rounded-lg"
-        src={`http://localhost:1337${product.image.data[0].attributes.url}`}
+        src={`${imagePrefix}${product.image.data[0].attributes.url}`}
         alt="image"
       />
 
