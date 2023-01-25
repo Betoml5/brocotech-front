@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export const getStaticProps = async () => {
   const response = await getProductsAPI("?populate=*");
-  console.log(response);
   const products = response.data;
 
   if (!products) {

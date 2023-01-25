@@ -109,7 +109,7 @@ const ProductDetails = ({
                   <Image
                     width={width}
                     height={height}
-                    className=" w-full rounded-lg "
+                    className=" lg:w-full lg:h-[650px] object-cover object-center rounded-lg "
                     src={`${imagePrefix}${image.attributes.url}`}
                     alt="image"
                   />
