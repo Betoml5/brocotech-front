@@ -1,4 +1,5 @@
 import { server } from "@/config";
+import axios from "axios";
 
 const productsClient = axios.create({
   baseURL: `${server}/products`,
@@ -7,18 +8,18 @@ const productsClient = axios.create({
   },
 });
 
-export const getProducts = async () => {
+export const getProductsAPI = async (queryParams) => {
   try {
-    const response = await productsClient.get("/");
+    const response = await productsClient.get(`${queryParams}`);
     return response.data;
   } catch (error) {
     return error;
   }
 };
 
-export const getProduct = async (id) => {
+export const getProductAPI = async (id, queryParams) => {
   try {
-    const response = await productsClient.get(`/${id}`);
+    const response = await productsClient.get(`/${id}${queryParams}`);
     return response.data;
   } catch (error) {
     return error;
