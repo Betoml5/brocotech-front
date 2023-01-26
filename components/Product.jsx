@@ -3,8 +3,15 @@ import Image from "next/image";
 import React from "react";
 
 const Product = ({ product }) => {
-  const width = product.image.data[0].attributes.width;
-  const height = product.image.data[0].attributes.height;
+  let image = product.image.data[0].attributes.url;
+  let width = product.image.data[0].attributes.width;
+  let height = product.image.data[0].attributes.height;
+  if (!image) {
+    image = "/no-photo.png";
+    width = 300;
+    height = 300;
+  }
+
   const attributes = product.description?.split("\n");
 
   return (
@@ -16,7 +23,7 @@ const Product = ({ product }) => {
         width={width}
         height={height}
         className=" w-full  md:object-cover md:h-40 xl:h-96 rounded-lg"
-        src={`${imagePrefix}${product.image.data[0].attributes.url}`}
+        src={`${imagePrefix}${image}`}
         alt="image"
       />
 
