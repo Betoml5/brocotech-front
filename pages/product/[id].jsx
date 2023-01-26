@@ -57,6 +57,16 @@ export const getStaticProps = async ({ params }) => {
       throw new Error(`Item with id ${params?.id} was not found.`);
     }
 
+    if (!productsSidebar || productsSidebar.length === 0) {
+      return {
+        props: {
+          product,
+          productsSidebar: [],
+        },
+        revalidate: 60,
+      };
+    }
+
     return {
       props: {
         product,
@@ -75,12 +85,12 @@ const ProductDetails = ({
   product: { id: productId, attributes: product },
   productsSidebar,
 }) => {
-  const width = product.image.data[0].attributes.width;
-  const height = product.image.data[0].attributes.height;
-  const attributes = product.description?.split("\n");
+  const width = product.image.data[0].attributes.width || 500;
+  const height = product.image.data[0].attributes.height || 500;
+  const attributes = product.description?.split("\n") || [];
   const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
 
-  const isOffer = product.offerPrice > 0;
+  const isOffer = product?.offerPrice > 0;
 
   return (
     <>
@@ -131,7 +141,7 @@ const ProductDetails = ({
               </p>
               {isOffer && (
                 <p className="text-red-500 font-semibold first-line:ml-2 ">
-                  ${formatCurrency(product.offerPrice)}
+                  ${formatCurrency(product?.offerPrice)}
                 </p>
               )}
             </div>
