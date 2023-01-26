@@ -24,7 +24,7 @@ const Alert = ({
 
   return (
     <div
-      class={`flex  p-4
+      className={`flex  p-4
               w-full 
               text-sm md:text-md
               lg:text-lg
@@ -33,9 +33,9 @@ const Alert = ({
                `}
       role="alert"
     >
-      <span class="sr-only">Info</span>
+      <span className="sr-only">Info</span>
       <div className="flex flex-1 justify-between ml-2">
-        <p class="font-medium">
+        <p className="font-medium">
           <span className="font-semibold">{message}</span>
         </p>
 
