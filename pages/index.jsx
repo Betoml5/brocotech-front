@@ -51,8 +51,6 @@ export const getStaticProps = async () => {
 export default function Home({ products, alert: widget }) {
   const [alert, setAlert] = useState(true);
 
-  console.log(widget);
-
   return (
     <>
       <Head>
