@@ -29,6 +29,8 @@ const Alert = ({
               text-sm md:text-md
               lg:text-lg
               bg-gray-800 
+              border
+              border-gray-700
               ${color}
                `}
       role="alert"
@@ -39,9 +41,11 @@ const Alert = ({
           <span className="font-semibold">{message}</span>
         </p>
 
-        {/* <button className="underline" onClick={() => setShow(false)}>
-          Cerrar
-        </button> */}
+        {!alwaysVisible && (
+          <button className="underline" onClick={() => setShow(false)}>
+            Cerrar
+          </button>
+        )}
       </div>
     </div>
   );

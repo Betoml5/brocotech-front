@@ -51,6 +51,8 @@ export const getStaticProps = async () => {
 export default function Home({ products, alert: widget }) {
   const [alert, setAlert] = useState(true);
 
+  console.log(widget);
+
   return (
     <>
       <Head>
@@ -63,15 +65,20 @@ export default function Home({ products, alert: widget }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {alert && (
-        <Alert
-          message={widget[0].attributes.description}
-          show={alert}
-          setShow={setAlert}
-          alwaysVisible
-          type="success"
-        />
-      )}
+      {/* Aqui validaremos si es visible, tiene prioridad y no se pude borrar */}
+      {widget &&
+        widget.map((item) => {
+          return (
+            <Alert
+              key={item.id}
+              message={item.attributes.description}
+              show={alert}
+              setShow={setAlert}
+              alwaysVisible={item.attributes.visible}
+              type="success"
+            />
+          );
+        })}
 
       {products.length === 0 && (
         <div className="flex flex-col items-center justify-center h-[80vh]">
@@ -88,6 +95,30 @@ export default function Home({ products, alert: widget }) {
       )}
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 max-w-[1440px] mx-auto">
+        <section className="flex overflow-hidden   col-span-full items-center justify-center place-content-center">
+          <Image
+            src="/giveaway.jpg"
+            width={150}
+            height={150}
+            alt="giveaway"
+            className="  object-cover md:w-1/2 "
+          />
+          <Image
+            src="/giveaway.jpg"
+            width={150}
+            height={150}
+            alt="giveaway"
+            className="   object-cover md:w-1/2 "
+          />
+          <Image
+            src="/giveaway.jpg"
+            width={150}
+            height={150}
+            alt="giveaway"
+            className=" object-cover md:w-1/2 "
+          />
+        </section>
+
         {products.map((product) => (
           <Link href={`/product/${product.id}`} key={product.id}>
             <Product product={product.attributes} />
