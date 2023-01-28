@@ -95,7 +95,10 @@ export default function Home({ products, alert: widget }) {
       )}
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 max-w-[1440px] mx-auto">
-        <section className="flex overflow-hidden   col-span-full items-center justify-center place-content-center">
+        <Link
+          href="https://www.facebook.com/permalink.php?story_fbid=pfbid026PDGwp7i1DjDwcuhMi9W5TUUeotwRr4k9paB88PGEK6pBEv3vsC1WFedHSh1aN79l&id=102581285616187"
+          className="flex overflow-hidden  col-span-full items-center justify-center place-content-center"
+        >
           <Image
             src="/giveaway.jpg"
             width={150}
@@ -117,7 +120,7 @@ export default function Home({ products, alert: widget }) {
             alt="giveaway"
             className=" object-cover md:w-1/2 "
           />
-        </section>
+        </Link>
 
         {products.map((product) => (
           <Link href={`/product/${product.id}`} key={product.id}>
