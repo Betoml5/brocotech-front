@@ -101,22 +101,22 @@ export default function Home({ products, alert: widget }) {
         >
           <Image
             src="/giveaway.jpg"
-            width={150}
-            height={150}
+            width={550}
+            height={550}
             alt="giveaway"
             className="  object-cover md:w-1/2 "
           />
           <Image
             src="/giveaway.jpg"
-            width={150}
-            height={150}
+            width={550}
+            height={550}
             alt="giveaway"
             className="   object-cover md:w-1/2 "
           />
           <Image
             src="/giveaway.jpg"
-            width={150}
-            height={150}
+            width={550}
+            height={550}
             alt="giveaway"
             className=" object-cover md:w-1/2 "
           />
