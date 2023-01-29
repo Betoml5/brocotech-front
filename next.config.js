@@ -7,8 +7,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "brocotech.herokuapp.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
-    domains: ["brocotech.herokuapp.com", "localhost"],
+    domains: ["brocotech.herokuapp.com", "localhost", "res.cloudinary.com"],
   },
   staticPageGenerationTimeout: 60,
 };

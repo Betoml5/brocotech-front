@@ -89,7 +89,7 @@ const ProductDetails = ({
   const height = product.image.data[0].attributes.height || 500;
   const attributes = product.description?.split("\n") || [];
   const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
-
+  console.log(productsSidebar.length);
   const isOffer = product?.offerPrice > 0;
 
   return (
@@ -99,7 +99,12 @@ const ProductDetails = ({
       </Head>
 
       <div className="grid grid-cols-1 lg:grid-cols-8  font-Montserrat max-w-2xl mx-auto p-6 lg:max-w-7xl">
-        <div className=" relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg lg:col-span-5  lg:row-span-1 xl:col-span-6 ">
+        <div
+          className={`${
+            productsSidebar.length === 0 &&
+            "lg:col-span-full  xl:col-span-full "
+          }  relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg lg:col-span-5  lg:row-span-1 xl:col-span-6 `}
+        >
           <p className="absolute z-50 text-[#674188] rounded-full px-4 py-1 -left-2 top-0 bg-[#C3ACD0] font-bold border-2 border-[#674188]">
             {product.name}
           </p>
@@ -121,8 +126,8 @@ const ProductDetails = ({
                   <Image
                     width={width}
                     height={height}
-                    className=" lg:w-full lg:h-[650px] object-cover object-center rounded-lg "
-                    src={`${imagePrefix}${image.attributes.url}`}
+                    className=" lg:w-full lg:h-[450px] object-cover object-center rounded-lg "
+                    src={`${image.attributes.url}`}
                     alt="image"
                   />
                 </SwiperSlide>
@@ -198,7 +203,7 @@ const ProductDetails = ({
                         width={width}
                         height={height}
                         className=" w-full h-full object-cover  rounded-lg "
-                        src={`${imagePrefix}${product.image.data[0].attributes.url}`}
+                        src={`${product.image.data[0].attributes.url}`}
                         alt="image"
                       />
                       <p className="absolute -top-2 -right-3 truncate text-ellipsis text-[9px] z-50 text-[#674188] rounded-full px-2 py-1   bg-[#C3ACD0] font-bold md:text-base md:px-4 md:py-2">

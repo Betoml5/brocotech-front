@@ -50,6 +50,36 @@ export const getStaticProps = async () => {
 
 export default function Home({ products, alert: widget }) {
   const [alert, setAlert] = useState(true);
+  const [query, setQuery] = useState("");
+
+  const searchFilter = (array) => {
+    return array.filter(
+      ({ attributes: item }) =>
+        item?.name.toLowerCase().includes(query.toLowerCase()) ||
+        item?.brand.toLowerCase().includes(query.toLowerCase()) ||
+        item?.category.data.attributes.name
+          .toLowerCase()
+          .includes(query.toLowerCase()) ||
+        item?.description.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
+  const filtered = searchFilter(products);
+
+  if (!products.length)
+    return (
+      <div className="flex flex-col items-center justify-center h-[80vh]">
+        <Image
+          src="/empty-folder.png"
+          width={300}
+          height={300}
+          alt="empty-folder"
+        />
+        <h1 className="text-2xl font-bold text-gray-500">
+          No hay productos que mostrar
+        </h1>
+      </div>
+    );
 
   return (
     <>
@@ -77,20 +107,6 @@ export default function Home({ products, alert: widget }) {
             />
           );
         })}
-
-      {products.length === 0 && (
-        <div className="flex flex-col items-center justify-center h-[80vh]">
-          <Image
-            src="/empty-folder.png"
-            width={300}
-            height={300}
-            alt="empty-folder"
-          />
-          <h1 className="text-2xl font-bold text-gray-500">
-            No hay productos que mostrar.
-          </h1>
-        </div>
-      )}
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 max-w-[1440px] mx-auto">
         <Link
@@ -120,11 +136,39 @@ export default function Home({ products, alert: widget }) {
           />
         </Link>
 
-        {products.map((product) => (
+        <div className="flex flex-col my-4 col-span-full">
+          <label htmlFor="search" className="mb-2 font-light ">
+            Buscador
+          </label>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="md:w-1/2 lg:w-1/3 p-2 rounded-md shadow-lg"
+            placeholder="Buscar por nombre o marca"
+            id="search"
+          />
+        </div>
+
+        {filtered.map((product) => (
           <Link href={`/product/${product.id}`} key={product.id}>
             <Product product={product.attributes} />
           </Link>
         ))}
+
+        {filtered.length === 0 && (
+          <div className="flex flex-col col-span-full items-center justify-center ">
+            <Image
+              src="/empty-folder.png"
+              width={300}
+              height={300}
+              alt="empty-folder"
+            />
+            <h1 className="text-2xl font-bold text-gray-500">
+              No encontramos el producto que buscas.
+            </h1>
+          </div>
+        )}
       </main>
     </>
   );

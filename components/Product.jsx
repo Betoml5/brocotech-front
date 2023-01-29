@@ -15,7 +15,7 @@ const Product = ({ product }) => {
   const attributes = product.description?.split("\n");
 
   return (
-    <div className="relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg">
+    <div className="relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg h-full">
       <p className="absolute text-[#674188] rounded-full px-4 py-1 -right-2 top-0 bg-[#C3ACD0] font-bold">
         {product.name}
       </p>
@@ -23,7 +23,7 @@ const Product = ({ product }) => {
         width={width}
         height={height}
         className=" w-full  md:object-cover md:h-40 xl:h-96 rounded-lg"
-        src={`${imagePrefix}${image}`}
+        src={`${image}`}
         alt="image"
       />
 
@@ -41,7 +41,7 @@ const Product = ({ product }) => {
         )}
       </div>
 
-      <div className="flex  gap-2 items-center flex-wrap  mt-2">
+      <div className="flex  gap-2 items-center flex-wrap  mt-2 flex-1">
         {attributes.map((item) => (
           <p
             className="text-center flex-grow bg-[#FFFBF5] font-light shadow-md px-6 py-1 rounded-lg w-fit"
