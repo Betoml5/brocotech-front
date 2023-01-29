@@ -49,7 +49,7 @@ export const getStaticProps = async ({ params }) => {
     const response = await getProductAPI(params.id, "?populate=*");
     const product = response.data;
     const responseSidebar = await getProductsAPI(
-      "?populate=*&pagination[start]&pagination[limit]=3"
+      `?filters[id][$ne]=${params.id}&populate=*&pagination[start]&pagination[limit]=3`
     );
     const productsSidebar = responseSidebar.data;
 
@@ -85,8 +85,6 @@ const ProductDetails = ({
   product: { id: productId, attributes: product },
   productsSidebar,
 }) => {
-  console.log(product);
-
   const width = product.image.data[0].attributes.width || 500;
   const height = product.image.data[0].attributes.height || 500;
   const attributes = product.description?.split("\n") || [];
