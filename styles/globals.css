@@ -3,4 +3,11 @@
 @tailwind base;
 @tailwind components;
 
+.form-input {
+  @apply p-2 shadow-md rounded-md my-2;
+}
+
+.form-btn {
+  @apply p-2 bg-blue-500 text-white rounded-md shadow-md;
+}
 @tailwind utilities;
