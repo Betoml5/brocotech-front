@@ -96,7 +96,13 @@ export default function Home({ products, alert: widget }) {
       </Head>
 
       <Alert
-        message={`¡Hola! ¿Quieres un celular o laptop especifico? Puedes pedirlo en la sección de "Pedidos Personalizados" y nosotros te lo conseguimos.`}
+        message={[
+          "¡Hola! ¿Quieres un celular o laptop especifico? Puedes pedirlo en la sección de ",
+          <Link className="underline" href="/pedido" key="pedido-personalizado">
+            Pedido personalizado
+          </Link>,
+          " y nosotros te lo conseguimos.",
+        ]}
         show={customReqAlert}
         setShow={setCustomRegAlert}
         type="success"
@@ -157,11 +163,15 @@ export default function Home({ products, alert: widget }) {
             placeholder="Buscar por nombre o marca"
             id="search"
           />
-        </div>
 
-        <Link href="/pedido" className="mb-2 underline">
-          Quiero un pedido personalizado
-        </Link>
+          <Link
+            id="pedido-personalizado"
+            href="/pedido"
+            className="mb-2 underline"
+          >
+            Quiero un pedido personalizado
+          </Link>
+        </div>
 
         {filtered.map((product) => (
           <Link href={`/product/${product.id}`} key={product.id}>

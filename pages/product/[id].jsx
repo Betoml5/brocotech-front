@@ -89,7 +89,6 @@ const ProductDetails = ({
   const height = product.image.data[0].attributes.height || 500;
   const attributes = product.description?.split("\n") || [];
   const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
-  console.log(productsSidebar.length);
   const isOffer = product?.offerPrice > 0;
 
   return (
@@ -126,7 +125,7 @@ const ProductDetails = ({
                   <Image
                     width={width}
                     height={height}
-                    className=" lg:w-full lg:h-[450px] object-cover object-center rounded-lg "
+                    className=" lg:w-full lg:h-[450px] object-contain object-center rounded-lg "
                     src={`${image.attributes.url}`}
                     alt="image"
                   />

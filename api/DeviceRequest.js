@@ -5,6 +5,10 @@ const DeviceRequestClient = axios.create({
 });
 
 export const createDeviceRequestAPI = async (data) => {
+  if (!data) {
+    throw new Error("No data provided to create device request");
+  }
+
   try {
     const response = await DeviceRequestClient.post("/", { data });
     return response.data;

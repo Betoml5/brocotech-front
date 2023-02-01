@@ -1,20 +1,36 @@
 import { createDeviceRequestAPI } from "@/api/DeviceRequest";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import React, { use, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import React, { useRef, useState } from "react";
 
 const Pedido = () => {
   const [request, setRequest] = useState({});
   const [formError, setFormError] = useState("");
 
-  const validateRequest = () => {
-    // Validate request and return boolean
+  const { data, isLoading, error, mutate, isSuccess } = useMutation({
+    mutationFn: createDeviceRequestAPI,
+    onSuccess: () => {
+      setRequest({});
+      setFormError("");
+    },
+    onError: (error) => {
+      setFormError(error.response.data.message);
+    },
+  });
 
-    if (!request.name || !request.phone || request.email || !request.device) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormError("");
+    if (
+      Object.values(request).some((value) => value === "" || !value) ||
+      Object.values(request).length === 0
+    ) {
       setFormError("Todos los campos son requeridos");
-      return false;
+      setTimeout(() => setFormError(""), 2500);
+      return;
     }
-
-    return true;
+    mutate(request);
+    formRef.current.reset();
+    setRequest({});
   };
 
   const onChange = (e) => {
@@ -24,19 +40,12 @@ const Pedido = () => {
     });
   };
 
-  const { data, isLoading, error, mutate } = useMutation({
-    mutationFn: createDeviceRequestAPI,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const formRef = useRef("");
 
   return (
-    <div className="max-w-xl mx-auto p-4">
-      <form action="" className="flex flex-col">
+    <div className="max-w-xl mx-auto font-Montserrat p-4">
+      <h3 className="text-2xl mb-4">Pedido personalizado 🥦</h3>
+      <form className="flex flex-col" ref={formRef}>
         <label htmlFor="name">Nombre</label>
         <input
           id="name"
@@ -45,15 +54,18 @@ const Pedido = () => {
           type="text"
           placeholder="Juan Perez"
           onChange={onChange}
+          required
         />
 
         <label htmlFor="email">Email</label>
         <input
+          type="email"
           placeholder="juanperez@hotmail.com"
           id="email"
           name="email"
           className="form-input"
           onChange={onChange}
+          required
         ></input>
 
         <label htmlFor="phone">Telefono</label>
@@ -63,6 +75,10 @@ const Pedido = () => {
           placeholder="8711232232"
           className="form-input"
           onChange={onChange}
+          required
+          maxLength={10}
+          minLength={10}
+          type="tel"
         ></input>
 
         <label htmlFor="device">Dipositivo deseado</label>
@@ -74,18 +90,24 @@ const Pedido = () => {
           placeholder="Iphone 13 Pro Max 128GB"
           className="form-input"
           onChange={onChange}
+          required
         ></textarea>
 
         {error && <p className="font-bold text-red-500">{error}</p>}
+        {formError && (
+          <p className="font-bold text-red-500 mb-2">{formError}</p>
+        )}
+        {isSuccess && (
+          <p className=" text-green-500 mb-2">
+            Pedido enviado correctamente, se te enviara un mensaje por WhatsApp.
+          </p>
+        )}
 
         <button
-          onClick={(e) => {
-            e.preventDefault();
-
-            mutate(request);
-          }} 
+          onClick={handleSubmit}
           type="submit"
           className="form-btn hover:opacity-95"
+          disabled={isLoading}
         >
           {isLoading ? "Enviando..." : "Enviar"}
         </button>
