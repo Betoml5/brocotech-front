@@ -55,10 +55,10 @@ export default function Home({ products, alert: widget }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const onFilter = (query) => {
-    const filterProducts = products.filter(
-      (item) =>
-        item.attributes.category.data.attributes.name.toLowerCase() ===
-        query.toLowerCase()
+    const filterProducts = products.filter((item) =>
+      item.attributes.category.data.attributes.name
+        .toLowerCase()
+        .includes(query.toLowerCase())
     );
     setFilteredProducts(filterProducts);
   };
@@ -189,14 +189,15 @@ export default function Home({ products, alert: widget }) {
               name="category"
               id="category"
               className="p-2 shadow-md"
+              defaultValue="Selecciona un filtro"
             >
               <option value="" disabled selected>
                 Selecciona una filtro
               </option>
               <option value="">Todos</option>
               <option value="laptops">Laptops</option>
-              <option value="celularesq">Celulares</option>
-              <option value="">Otros</option>
+              <option value="celulares">Celulares</option>
+              <option value="audifonos asistentes virtuales ">Otros</option>
             </select>
           </div>
         </div>
