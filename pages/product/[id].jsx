@@ -13,7 +13,6 @@ import "swiper/css/navigation";
 
 import { getProductAPI, getProductsAPI } from "@/api/Product";
 import { formatCurrency } from "@/utils";
-import { server, imagePrefix } from "@/config";
 
 export const getStaticPaths = async () => {
   const response = await getProductsAPI("?populate=*");
