@@ -55,10 +55,12 @@ export default function Home({ products, alert: widget }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const onFilter = (query) => {
+    console.log(query);
+    console.log(products);
     const filterProducts = products.filter((item) =>
-      item.attributes.category.data.attributes.name
+      query
         .toLowerCase()
-        .includes(query.toLowerCase())
+        .includes(item.attributes.category.data.attributes.name.toLowerCase())
     );
     setFilteredProducts(filterProducts);
   };
