@@ -9,9 +9,7 @@ import { useState } from "react";
 
 export const getStaticProps = async () => {
   try {
-    const response = await getProductsAPI(
-      "?populate=*&sort[0]=avaliable%3Adesc"
-    );
+    const response = await getProductsAPI("?populate=*");
     const products = response.data;
     const alertResponse = await getAlertsAPI();
     const alert = alertResponse.data;
@@ -53,8 +51,17 @@ export const getStaticProps = async () => {
 export default function Home({ products, alert: widget }) {
   const [alert, setAlert] = useState(true);
   const [query, setQuery] = useState("");
-
   const [customReqAlert, setCustomRegAlert] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const onFilter = (query) => {
+    const filterProducts = products.filter(
+      (item) =>
+        item.attributes.category.data.attributes.name.toLowerCase() ===
+        query.toLowerCase()
+    );
+    setFilteredProducts(filterProducts);
+  };
 
   const searchFilter = (array) => {
     return array.filter(
@@ -173,7 +180,32 @@ export default function Home({ products, alert: widget }) {
           >
             Quiero un pedido personalizado
           </Link>
+
+          <div>
+            <select
+              onChange={(e) => {
+                onFilter(e.target.value);
+              }}
+              name="category"
+              id="category"
+              className="p-2 shadow-md"
+            >
+              <option value="" disabled selected>
+                Selecciona una filtro
+              </option>
+              <option value="">Todos</option>
+              <option value="laptops">Laptops</option>
+              <option value="celularesq">Celulares</option>
+              <option value="">Otros</option>
+            </select>
+          </div>
         </div>
+        {filteredProducts.length > 0 &&
+          filteredProducts.map((product) => (
+            <Link href={`/product/${product.id}`} key={product.id}>
+              <Product product={product.attributes} />
+            </Link>
+          ))}
 
         {filtered.map((product) => (
           <Link href={`/product/${product.id}`} key={product.id}>

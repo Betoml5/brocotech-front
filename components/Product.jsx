@@ -11,9 +11,7 @@ const Product = ({ product }) => {
     width = 300;
     height = 300;
   }
-
   const attributes = product.description?.split("\n");
-
   return (
     <div className="relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg h-full">
       <p className="absolute text-[#674188] rounded-full px-4 py-1 -right-2 top-0 bg-[#C3ACD0] font-bold">
