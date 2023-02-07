@@ -13,7 +13,6 @@ import "swiper/css/navigation";
 
 import { getProductAPI, getProductsAPI } from "@/api/Product";
 import { formatCurrency } from "@/utils";
-import { server, imagePrefix } from "@/config";
 
 export const getStaticPaths = async () => {
   const response = await getProductsAPI("?populate=*");
@@ -89,7 +88,6 @@ const ProductDetails = ({
   const height = product.image.data[0].attributes.height || 500;
   const attributes = product.description?.split("\n") || [];
   const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
-  console.log(productsSidebar.length);
   const isOffer = product?.offerPrice > 0;
 
   return (
@@ -126,7 +124,7 @@ const ProductDetails = ({
                   <Image
                     width={width}
                     height={height}
-                    className=" lg:w-full lg:h-[450px] object-cover object-center rounded-lg "
+                    className=" lg:w-full lg:h-[450px] object-contain object-center rounded-lg "
                     src={`${image.attributes.url}`}
                     alt="image"
                   />
@@ -189,8 +187,14 @@ const ProductDetails = ({
 
             <div className="grid place-items-center grid-cols-3 md:grid-cols-2  lg:grid-cols-1  mt-2 lg:place-items-end lg:gap-y-4">
               {productsSidebar.map(({ id, attributes: product }) => {
-                const width = product.image.data[0].attributes.width;
-                const height = product.image.data[0].attributes.height;
+                let image = product.image.data[0].attributes.url;
+                let width = product.image.data[0].attributes.width;
+                let height = product.image.data[0].attributes.height;
+                if (!image) {
+                  image = "/no-photo.png";
+                  width = 300;
+                  height = 300;
+                }
                 //Esto es para que no se repita el producto en el sidebar
                 if (productId !== id) {
                   return (

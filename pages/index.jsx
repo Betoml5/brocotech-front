@@ -9,7 +9,9 @@ import { useState } from "react";
 
 export const getStaticProps = async () => {
   try {
-    const response = await getProductsAPI("?populate=*");
+    const response = await getProductsAPI(
+      "?populate=*&sort[0]=avaliable%3Adesc"
+    );
     const products = response.data;
     const alertResponse = await getAlertsAPI();
     const alert = alertResponse.data;
@@ -52,6 +54,8 @@ export default function Home({ products, alert: widget }) {
   const [alert, setAlert] = useState(true);
   const [query, setQuery] = useState("");
 
+  const [customReqAlert, setCustomRegAlert] = useState(true);
+
   const searchFilter = (array) => {
     return array.filter(
       ({ attributes: item }) =>
@@ -93,6 +97,19 @@ export default function Home({ products, alert: widget }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Alert
+        message={[
+          "¡Hola! ¿Quieres un celular o laptop especifico? Puedes pedirlo en la sección de ",
+          <Link className="underline" href="/pedido" key="pedido-personalizado">
+            Pedido personalizado
+          </Link>,
+          " y nosotros te lo conseguimos.",
+        ]}
+        show={customReqAlert}
+        setShow={setCustomRegAlert}
+        type="success"
+      />
+
       {/* Aqui validaremos si es visible, tiene prioridad y no se pude borrar */}
       {widget &&
         widget.map((item) => {
@@ -102,7 +119,7 @@ export default function Home({ products, alert: widget }) {
               message={item.attributes.description}
               show={alert}
               setShow={setAlert}
-              alwaysVisible={item.attributes.visible}
+              alwaysVisible={item.attributes.alwaysVisible}
               type="success"
             />
           );
@@ -136,7 +153,7 @@ export default function Home({ products, alert: widget }) {
           />
         </Link>
 
-        <div className="flex flex-col my-4 col-span-full">
+        <div className="flex flex-col  col-span-full">
           <label htmlFor="search" className="mb-2 font-light ">
             Buscador
           </label>
@@ -148,6 +165,14 @@ export default function Home({ products, alert: widget }) {
             placeholder="Buscar por nombre o marca"
             id="search"
           />
+
+          <Link
+            id="pedido-personalizado"
+            href="/pedido"
+            className="mb-2 underline"
+          >
+            Quiero un pedido personalizado
+          </Link>
         </div>
 
         {filtered.map((product) => (
