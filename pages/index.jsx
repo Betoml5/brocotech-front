@@ -10,7 +10,7 @@ import { useState } from "react";
 export const getStaticProps = async () => {
   try {
     const response = await getProductsAPI(
-      "?populate=*&sort[0]=avaliable%3Adesc"
+      "?populate=*&sort[0]=avaliable%3Adesc&sort[1]=publishedAt%3Adesc"
     );
     const products = response.data;
     const alertResponse = await getAlertsAPI();
@@ -57,8 +57,6 @@ export default function Home({ products, alert: widget }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const onFilter = (query) => {
-    console.log(query);
-    console.log(products);
     const filterProducts = products.filter((item) =>
       query
         .toLowerCase()
