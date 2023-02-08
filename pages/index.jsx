@@ -9,7 +9,9 @@ import { useState } from "react";
 
 export const getStaticProps = async () => {
   try {
-    const response = await getProductsAPI("?populate=*");
+    const response = await getProductsAPI(
+      "?populate=*&sort[0]=avaliable%3Adesc"
+    );
     const products = response.data;
     const alertResponse = await getAlertsAPI();
     const alert = alertResponse.data;
