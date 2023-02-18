@@ -126,33 +126,6 @@ export default function Home({ products, alert: widget }) {
         })}
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 max-w-[1440px] mx-auto">
-        <Link
-          href="https://www.facebook.com/permalink.php?story_fbid=pfbid026PDGwp7i1DjDwcuhMi9W5TUUeotwRr4k9paB88PGEK6pBEv3vsC1WFedHSh1aN79l&id=102581285616187"
-          className="flex overflow-hidden  col-span-full items-center justify-center place-content-center"
-        >
-          <Image
-            src="/giveaway.jpg"
-            width={550}
-            height={550}
-            alt="giveaway"
-            className="  object-cover md:w-1/2 "
-          />
-          <Image
-            src="/giveaway.jpg"
-            width={550}
-            height={550}
-            alt="giveaway"
-            className="   object-cover md:w-1/2 "
-          />
-          <Image
-            src="/giveaway.jpg"
-            width={550}
-            height={550}
-            alt="giveaway"
-            className=" object-cover md:w-1/2 "
-          />
-        </Link>
-
         <div className="flex flex-col  col-span-full">
           <label htmlFor="search" className="mb-2 font-light ">
             Buscador
@@ -169,7 +142,7 @@ export default function Home({ products, alert: widget }) {
           <Link
             id="pedido-personalizado"
             href="/pedido"
-            className="mb-2 underline"
+            className="my-2 underline"
           >
             Quiero un pedido personalizado
           </Link>
