@@ -51,6 +51,7 @@ export const getStaticProps = async () => {
 };
 
 export default function Home({ products, alert: widget }) {
+  console.log(products);
   const [alert, setAlert] = useState(true);
   const [query, setQuery] = useState("");
   const [customReqAlert, setCustomRegAlert] = useState(true);
