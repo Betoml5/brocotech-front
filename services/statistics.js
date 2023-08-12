@@ -17,3 +17,12 @@ export const getGrossProjectionAPI = async () => {
     throw new Error(error);
   }
 };
+
+export const getSpentAmountAPI = async () => {
+  try {
+    const response = await userClient.get("/spent-amount");
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
