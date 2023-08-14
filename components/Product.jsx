@@ -3,14 +3,19 @@ import Image from "next/image";
 import React from "react";
 
 const Product = ({ product }) => {
-  let image = product.image.data[0].attributes.url;
-  let width = product.image.data[0].attributes.width;
-  let height = product.image.data[0].attributes.height;
-  if (!image) {
+  let image;
+  let width;
+  let height;
+  if (!product.image.data) {
     image = "/no-photo.png";
     width = 300;
     height = 300;
+  } else {
+    image = image = product.image?.data[0]?.attributes.url;
+    width = product.image?.data[0]?.attributes.width;
+    height = product.image?.data[0]?.attributes.height;
   }
+
   const attributes = product.description?.split("\n");
   return (
     <div className="relative flex flex-col    font-Montserrat  p-4 shadow-xl rounded-lg h-full">

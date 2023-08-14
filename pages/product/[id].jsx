@@ -52,7 +52,7 @@ export const getStaticProps = async ({ params }) => {
     );
     const productsSidebar = responseSidebar.data;
 
-    if (product === null) {
+    if (product === null || product === undefined) {
       throw new Error(`Item with id ${params?.id} was not found.`);
     }
 
@@ -75,6 +75,9 @@ export const getStaticProps = async ({ params }) => {
     };
   } catch (error) {
     return {
+      props: {
+        product: null,
+      },
       notFound: true,
     };
   }
@@ -84,8 +87,8 @@ const ProductDetails = ({
   product: { id: productId, attributes: product },
   productsSidebar,
 }) => {
-  const width = product.image.data[0].attributes.width || 500;
-  const height = product.image.data[0].attributes.height || 500;
+  const width = product.image?.data[0].attributes.width || 500;
+  const height = product.image?.data[0].attributes.height || 500;
   const attributes = product.description?.split("\n") || [];
   const whatsAppMessage = `Hola, estoy interesado en este producto ${product.name}`;
   const isOffer = product?.offerPrice > 0;
@@ -195,7 +198,7 @@ const ProductDetails = ({
                   width = 300;
                   height = 300;
                 }
-                //Esto es para que no se repita el producto en el sidebar
+                // Esto es para que no se repita el producto en el sidebar
                 if (productId !== id) {
                   return (
                     <Link

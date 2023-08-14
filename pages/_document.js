@@ -8,6 +8,7 @@ export default function Document() {
           rel="stylesheet"
           href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
         />
+        <link rel="icon" href="/brocologo.png" />
       </Head>
       <body className="bg-[#F9F7F7]">
         <Main />
