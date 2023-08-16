@@ -3,6 +3,9 @@
 @tailwind base;
 @tailwind components;
 
+html {
+  scroll-behavior: smooth;
+}
 .form-input {
   @apply p-2 shadow-md rounded-md my-2;
 }

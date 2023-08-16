@@ -6,9 +6,17 @@ import React from "react";
 const SellHistory = ({ sells }) => {
   return (
     <div className="p-4">
-      <Link href="/dashboard" className="p-2 border border-black rounded-md">
-        Dashboard
-      </Link>
+      <div className="flex justify-between">
+        <Link href="/dashboard" className="p-2 border border-black rounded-md">
+          Dashboard
+        </Link>
+        <Link
+          href="/registrar-venta"
+          className="p-2 border border-black rounded-md"
+        >
+          Registrar venta
+        </Link>
+      </div>
       <div className="overflow-x-auto ">
         <table className="w-full mt-4 text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -20,10 +28,10 @@ const SellHistory = ({ sells }) => {
                 Producto
               </th>
               <th scope="col" className="py-3 px-6">
-                Costo
+                Venta
               </th>
               <th scope="col" className="py-3 px-6">
-                Venta
+                Costo
               </th>
               <th scope="col" className="py-3 px-6">
                 Fecha
@@ -42,13 +50,13 @@ const SellHistory = ({ sells }) => {
                 </td>
                 <td className="text-red-500 py-4 px-6">
                   $
-                  {formatCurrency(sell.attributes.product.data.attributes.cost)}
-                </td>
-                <td className="text-green-500 py-4 px-6">
-                  $
                   {formatCurrency(
                     sell.attributes.product.data.attributes.price
                   )}
+                </td>
+                <td className="text-green-500 py-4 px-6">
+                  $
+                  {formatCurrency(sell.attributes.product.data.attributes.cost)}
                 </td>
                 <td className="py-4 px-6">{sell.attributes.date}</td>
               </tr>
