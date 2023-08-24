@@ -28,7 +28,7 @@ const RegisterSell = ({ products }) => {
           name="product"
           id="product"
         >
-          {products.data.map((product) => (
+          {products.data?.map((product) => (
             <option key={product.id} value={product.id}>
               {product.attributes.name}
             </option>
@@ -58,7 +58,6 @@ export const getServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.log(error);
     return {
       props: {
         products: [],

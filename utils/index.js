@@ -1,5 +1,5 @@
 export const formatCurrency = (currency) => {
-  if (!currency) {
+  if (!currency || currency === 0 || currency === "0") {
     return 0;
   }
 

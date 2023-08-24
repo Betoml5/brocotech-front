@@ -33,12 +33,13 @@ const Dashboard = ({
   const { user, loading } = useAuth();
   const navigate = useRouter();
   const [query, setQuery] = useState("all");
-  const data = Object.entries(projection).map(([key, value]) => ({
+  const data = Object.entries(projection)?.map(([key, value]) => ({
     name: key,
     proyeccion: value,
   }));
 
   const searchFilter = (array) => {
+    if (!array || !array.length) return [];
     //posibles valores de query: all, avaliable, noAvaliable
     if (query === "all") return array;
     if (query === "avaliable")
@@ -52,6 +53,8 @@ const Dashboard = ({
   };
 
   const handleCopy = (product) => {
+    if (!product || !product.attributes) return alert("No se pudo copiar");
+
     const text = `Nombre: ${
       product.attributes.name
     } \nPrecio: $${formatCurrency(
@@ -61,7 +64,7 @@ const Dashboard = ({
     alert("Copiado al portapapeles");
   };
 
-  const filtered = searchFilter(products.data);
+  const filtered = searchFilter(products?.data);
 
   if (loading) return <p>loading...</p>;
   if (!user && !loading) {
@@ -97,7 +100,7 @@ const Dashboard = ({
             Ver historial
           </Link>
           <div className="flex flex-wrap gap-4 mt-4 max-h-[700px] overflow-y-scroll">
-            {sells?.data.map((sell) => {
+            {sells?.data?.map((sell) => {
               return <Sell key={sell.id} sell={sell} />;
             })}
           </div>
@@ -119,11 +122,11 @@ const Dashboard = ({
           </div>
           <div className="px-6 py-8 rounded-md bg-white flex-grow h-40 shadow-md">
             <p className="font-semibold text-xl mb-6">Total de productos</p>
-            <p className="text-3xl font-bold ">{products?.data.length}</p>
+            <p className="text-3xl font-bold ">{products?.data?.length}</p>
           </div>
           <div className="px-6 py-8 rounded-md bg-white flex-grow h-40 shadow-md">
             <p className="font-semibold text-xl mb-6">Total de ventas</p>
-            <p className="text-3xl font-bold ">{sells?.data.length}</p>
+            <p className="text-3xl font-bold ">{sells?.data?.length}</p>
           </div>
         </div>
         <div className="flex flex-col mt-4  ">
@@ -141,7 +144,7 @@ const Dashboard = ({
             </select>
           </div>
           <div className="flex flex-wrap gap-4 mt-4 max-h-[700px] overflow-y-scroll">
-            {filtered.map((product) => (
+            {filtered?.map((product) => (
               <ProductDashboard
                 key={product.id}
                 product={product}

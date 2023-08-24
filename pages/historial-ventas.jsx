@@ -51,7 +51,7 @@ const SellHistory = ({ sells }) => {
             </tr>
           </thead>
           <tbody>
-            {sells?.data.map((sell) => (
+            {sells?.data?.map((sell) => (
               <tr
                 key={sell.id}
                 className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
