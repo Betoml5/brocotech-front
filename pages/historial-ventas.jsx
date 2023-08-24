@@ -1,9 +1,21 @@
+import useAuth from "@/hooks/useAuth";
 import { getSellAPI } from "@/services/sell";
 import { formatCurrency } from "@/utils";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 const SellHistory = ({ sells }) => {
+  const { user, loading } = useAuth();
+  const navigate = useRouter();
+
+  if (loading) return <p>Loading...</p>;
+  if (!user && !loading) {
+    if (typeof window !== "undefined")
+      navigate.replace("/iniciar-sesion", undefined, { shallow: true });
+    return null;
+  }
+
   return (
     <div className="p-4">
       <div className="flex justify-between">

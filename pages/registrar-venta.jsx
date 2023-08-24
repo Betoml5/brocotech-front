@@ -1,10 +1,25 @@
 import { getProductsAPI } from "@/api/Product";
+import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const RegisterSell = ({ products }) => {
+  const { user, loading } = useAuth();
+  const navigate = useRouter();
+
+  if (loading) return <p>Loading...</p>;
+  if (!user && !loading) {
+    if (typeof window !== "undefined")
+      navigate.replace("/iniciar-sesion", undefined, { shallow: true });
+    return null;
+  }
+
   return (
     <div className=" m-4">
-      <Link href="/historial-ventas" className="p-2 border border-black rounded-md">
+      <Link
+        href="/historial-ventas"
+        className="p-2 border border-black rounded-md"
+      >
         Volver
       </Link>
       <form className="flex flex-col p-4 max-w-xl mx-auto">
