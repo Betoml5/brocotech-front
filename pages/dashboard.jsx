@@ -39,7 +39,6 @@ const Dashboard = ({
   }));
 
   const searchFilter = (array) => {
-    if (!array) return [];
     //posibles valores de query: all, avaliable, noAvaliable
     if (query === "all") return array;
     if (query === "avaliable")
