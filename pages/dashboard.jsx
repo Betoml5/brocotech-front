@@ -39,7 +39,7 @@ const Dashboard = ({
   }));
 
   const searchFilter = (array) => {
-    if (!array || !array.length) return [];
+    if (!array) return [];
     //posibles valores de query: all, avaliable, noAvaliable
     if (query === "all") return array;
     if (query === "avaliable")
@@ -180,7 +180,7 @@ export const getServerSideProps = async () => {
       props: {
         projection: {},
         grossProjection: 0,
-        products: {},
+        products: [],
       },
     };
   }
