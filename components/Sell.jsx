@@ -1,10 +1,7 @@
 import { formatCurrency } from "../utils/index";
 const Sell = ({ sell }) => {
   return (
-    <div
-      className="flex-grow   bg-white rounded-md shadow-md p-2"
-      key={sell.id}
-    >
+    <div className="flex-grow bg-white rounded-md shadow-md p-2 " key={sell.id}>
       <p className="font-bold">
         {sell.attributes.product.data.attributes.name}
       </p>
@@ -21,7 +18,18 @@ const Sell = ({ sell }) => {
           ${formatCurrency(sell.attributes.product.data.attributes.cost)}
         </span>
       </p>
-      <p className="mt-4 mb-2">
+      <hr className="my-2" />
+      <p>
+        <span>Ganancia: </span>
+        <span className="text-green-700 font-bold">
+          $
+          {formatCurrency(
+            sell.attributes.product.data.attributes.price -
+              sell.attributes.product.data.attributes.cost
+          )}
+        </span>
+      </p>
+      <p className=" mb-2">
         Fecha de venta:{" "}
         <span className="font-semibold">{sell.attributes.date}</span>
       </p>

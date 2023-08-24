@@ -51,7 +51,6 @@ export const getStaticProps = async () => {
 };
 
 export default function Home({ products, alert: widget }) {
-  console.log(products);
   const [alert, setAlert] = useState(true);
   const [query, setQuery] = useState("");
   const [customReqAlert, setCustomRegAlert] = useState(true);
@@ -156,26 +155,6 @@ export default function Home({ products, alert: widget }) {
           >
             Quiero un pedido personalizado
           </Link>
-
-          <div>
-            <select
-              onChange={(e) => {
-                onFilter(e.target.value);
-              }}
-              name="category"
-              id="category"
-              className="p-2 shadow-md"
-              defaultValue="Selecciona un filtro"
-            >
-              <option value="" disabled selected>
-                Selecciona una filtro
-              </option>
-              <option value="">Todos</option>
-              <option value="laptops">Laptops</option>
-              <option value="celulares">Celulares</option>
-              <option value="audifonos asistentes virtuales ">Otros</option>
-            </select>
-          </div>
         </div>
         {filteredProducts.length > 0 &&
           filteredProducts.map((product) => (
